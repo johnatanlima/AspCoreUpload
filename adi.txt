@@ -1,0 +1,7 @@
+ 
+  Adicao de enctype="multipart/form-data no form
+
+ no Post do create eu preciso adicionar um param do tipo IFormFile "nome var do form"
+  
+
+
