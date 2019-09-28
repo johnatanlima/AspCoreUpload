@@ -1,3 +1,5 @@
+using System;
+
 namespace AspCoreUpload
 {
 	public class Pessoa{
