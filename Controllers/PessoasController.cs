@@ -7,16 +7,21 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AspCoreUpload;
 using AspCoreUpload.Models;
+using Microsoft.AspNetCore.Http;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
 
 namespace AspCoreUpload.Controllers
 {
     public class PessoasController : Controller
     {
         private readonly PessoaDbContext _context;
+        private IHostingEnvironment _environment;
 
-        public PessoasController(PessoaDbContext context)
+        public PessoasController(PessoaDbContext context, IHostingEnvironment environment)
         {
             _context = context;
+            _environment = environment;
         }
 
         // GET: Pessoas
@@ -54,10 +59,22 @@ namespace AspCoreUpload.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PessoaId,Nome,Foto")] Pessoa pessoa)
+        public async Task<IActionResult> Create([Bind("PessoaId,Nome,Foto")] Pessoa pessoa, IFormFile foto)
         {
             if (ModelState.IsValid)
             {
+
+                var pathFoto = Path.Combine(_environment.WebRootPath, "Imagens");
+
+                if (foto != null)
+                {
+                    using (FileStream fs = new FileStream(Path.Combine(pathFoto, foto.FileName), FileMode.Create))
+                    {
+                        await foto.CopyToAsync(fs);
+                        
+                    }
+                }
+
                 _context.Add(pessoa);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

@@ -8,6 +8,6 @@ namespace AspCoreUpload
 
         public string Nome {get; set;}
 
-        public Byte[] Foto {get; set;}	
+        public string Foto {get; set;}	
 	}
 }
