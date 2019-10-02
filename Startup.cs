@@ -61,7 +61,7 @@ namespace AspCoreUpload
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Pessoa}/{action=Index}/{id?}");
+                    template: "{controller=Pessoas}/{action=Index}/{id?}");
             });
         }
     }
