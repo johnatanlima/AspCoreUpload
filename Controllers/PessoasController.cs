@@ -71,7 +71,7 @@ namespace AspCoreUpload.Controllers
                     using (FileStream fs = new FileStream(Path.Combine(pathFoto, foto.FileName), FileMode.Create))
                     {
                         await foto.CopyToAsync(fs);
-                        pessoa.Foto = "~/Imagens" + foto.FileName;
+                        pessoa.Foto = "~/Imagens/" + foto.FileName;
                     }
                 }
 
